@@ -1,0 +1,10 @@
+.users-container {
+    display: flex;
+  }
+  
+  .users-content {
+    margin-left: 200px; /* Same width as sidebar */
+    padding: 20px;
+    width: calc(100% - 200px); /* Full width minus sidebar width */
+  }
+  
