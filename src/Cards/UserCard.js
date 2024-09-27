@@ -32,7 +32,7 @@ const UserCard = () => {
 
   // Apply search filter
   const filteredUsers = users.filter(user => 
-    (user.Email && user.Email.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    (user.ID && String(user.ID).toLowerCase().includes(searchTerm.toLowerCase())) ||
     (user.Name && user.Name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 

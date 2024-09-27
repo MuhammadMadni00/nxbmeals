@@ -1,14 +1,16 @@
 import React from "react";
 import Sidebar from "../navbar/Sidebar";
-import UserCard from "../Cards/UserCard";
 import './Catalogue.css';
+import CatalogueCard from "../Cards/CatalogueCard";
 function Catalogue() {
 return(
     <div className="catalogue-container">
     <Sidebar/>
     <div className="catalogue-content">
-    <h1>Catalogue</h1>
+    <h1>Manage Catalogue</h1>
     <hr/>
+    <CatalogueCard/>
+
     </div>
     </div>
 );
