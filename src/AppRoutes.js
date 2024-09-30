@@ -8,8 +8,9 @@ import Users from "./users";
 import Menu from "./menu";
 import Catalogue from "./Catalogue";
 import Invoicing from "./Invoicing";
-import MealsHistory from "./MealsHistory";
-import Verification from "./Verification";
+import MealsHistory from "./mealshistory";
+import Verification from "./verification";
+import AddCatalogueForm from "./Catalogue/addCatalogueForm";
 const routes = [
     { path: "/login", element: LoginCard, isPrivate: false, isLogin: true },
     { path: "/", element: Dashboard, isPrivate: true },
@@ -20,6 +21,7 @@ const routes = [
     { path: "/Invoicing", element: Invoicing, isPrivate: false },
     { path: "/meal-history", element: MealsHistory, isPrivate: false },
     { path: "/verification", element: Verification, isPrivate: false },
+    { path: "/add-catalogue", element: AddCatalogueForm, isPrivate: false },
 
   ];
 function AppRoutes(){

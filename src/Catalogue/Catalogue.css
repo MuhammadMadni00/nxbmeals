@@ -7,3 +7,114 @@
   padding: 20px;
   width: calc(100% - 200px); /* Full width minus sidebar width */
 }
+.Catalogue-header{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 20px;
+  /* flex-direction: row; */
+}
+
+.catalogue-form {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalogue-form div {
+  margin-bottom: 15px;
+}
+
+.catalogue-form label {
+  font-weight: bold;
+}
+
+.catalogue-form input, .catalogue-form select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.catalogue-form button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+}
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f8f9fa; /* Light background color */
+}
+
+.card {
+  background-color: #ffffff; /* Card background */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Card shadow */
+  padding: 20px;
+  width: 400px; /* Fixed width for the card */
+  transition: transform 0.2s; /* Smooth transition */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Slightly scale on hover */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px; /* Space below the heading */
+  color: #333; /* Dark text color */
+}
+
+.form-group {
+  margin-bottom: 15px; /* Space between form groups */
+}
+
+label {
+  display: block;
+  margin-bottom: 5px; /* Space below labels */
+  font-weight: bold; /* Bold labels */
+  color: #555; /* Slightly lighter color */
+}
+
+.form-input {
+  width: 100%; /* Full width inputs */
+  padding: 10px;
+  border: 1px solid #ced4da; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  transition: border-color 0.3s; /* Smooth transition for border */
+}
+
+.form-input:focus {
+  border-color: #80bdff; /* Highlight border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.submit-button {
+  width: 100%; /* Full width button */
+  padding: 10px;
+  background-color: #007bff; /* Bootstrap primary color */
+  color: #fff; /* White text */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
