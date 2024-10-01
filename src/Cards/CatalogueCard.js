@@ -1,5 +1,7 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
 // const initialCatalogue = [
 //   {
 //     id: 1,
@@ -95,7 +97,10 @@ import axios from "axios";
 const CatalogueCard = () => {
     const [catalogue, setCatalogue] = useState("");
     const [loading, setLoading] = useState(true);
-
+    
+    const apiUrl = "http://localhost:5000";
+    
+    const navigate = useNavigate(); 
   const handleToggleStatus = (id) => {
     setCatalogue((prevCatalogue) =>
       prevCatalogue.map((item) =>
@@ -114,8 +119,7 @@ const CatalogueCard = () => {
     
     if (confirm) {
       try {
-        console.log(id)
-        await axios.delete(`http://localhost:5000/api/catalogues/${id}`);
+        await axios.delete(`${apiUrl}/api/catalogues/${id}`);
           setCatalogue((prevCatalogue) =>
           prevCatalogue.filter((item) => item.id !== id)
         );
@@ -129,8 +133,8 @@ const CatalogueCard = () => {
 }
 
   const handleEdit = (id) => {
-    console.log(`Edit item with ID: ${id}`);
     alert(`Edit feature is clicked for item with ID: ${id}`);
+    navigate(`/edit-catalogue/${id}`);
   };
   useEffect(() => {
     const fetchCatalogues = async () => {
@@ -171,7 +175,7 @@ const CatalogueCard = () => {
             >
               Edit
             </button>
-            {console.log(item.image)}
+       
             <button
               style={styles.deleteButton}
               

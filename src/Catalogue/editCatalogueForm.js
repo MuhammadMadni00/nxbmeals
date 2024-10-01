@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 import "./Catalogue.css";
 
-const AddCatalogueForm = () => {
+const EditCatalogueForm = () => {
   const [name, setName] = useState("");
   const [type, setType] = useState("main course");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const base_uri = "http://localhost:5000/api/catalogues";
-
+  const catalogueId = useParams()
+  const id = catalogueId.id
+  const base_uri = `http://localhost:5000/api/catalogues/${id}`;
   const handleImageCompression = async (file) => {
     const options = {
       maxSizeMB: 1,
@@ -37,13 +39,13 @@ const AddCatalogueForm = () => {
     console.log("type:", type);
 
     try {
-      const response = await axios.post(base_uri, formData, {
+      const response = await axios.put(base_uri, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      alert("Catalogue created successfully");
+      alert("Catalogue edit successfully");
       setSuccess(true);
       setName("");
       setType("main course");
@@ -55,11 +57,40 @@ const AddCatalogueForm = () => {
       setSuccess(false);
     }
   };
+  useEffect(() => {
+
+
+    const fetchCatalogue = async () => {
+      try {
+        // setLoading(true);
+        const response = await fetch(base_uri);
+        if (!response.ok) {
+          throw new Error('Failed to fetch catalogue');
+        }
+        const data = await response.json();
+        setName(data.name);
+        setType("main course");
+        // let id = useParams()
+        // console.log("hellow",id)
+        setPrice(data.price);
+        setImage(data.image);
+        // setCatalogue(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchCatalogue();
+    }
+  }, [id]);
 
   return (
     <div className="form-container">
       <div className="card">
-        <h2>Add New Catalogue Item</h2>
+        <h2>Edit Catalogue Item</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Name:</label>
@@ -107,7 +138,7 @@ const AddCatalogueForm = () => {
             />
           </div>
           <button type="submit" className="submit-button">
-            Add Item
+            Edit Item
           </button>
         </form>
       </div>
@@ -115,4 +146,4 @@ const AddCatalogueForm = () => {
   );
 };
 
-export default AddCatalogueForm;
+export default EditCatalogueForm;

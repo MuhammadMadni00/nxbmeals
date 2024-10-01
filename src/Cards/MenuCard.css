@@ -1,0 +1,42 @@
+.menu-card-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .menu-card {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+    gap: 20px;
+  }
+  
+  .menu-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    min-width: 250px;
+    flex-shrink: 0;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .menu-item-image {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .menu-item-details {
+    margin-top: 10px;
+  }
+  
+  .menu-item-details h3 {
+    margin: 5px 0;
+    font-size: 1.2em;
+  }
+  
+  .menu-item-details p {
+    color: #333;
+    font-size: 1em;
+  }
+  

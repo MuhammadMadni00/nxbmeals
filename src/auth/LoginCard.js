@@ -26,6 +26,8 @@ function LoginCard() {
         }
       );
       localStorage.setItem("authToken", response.data.token);
+
+      console.log("Username:", email, "Password:", password);
       navigate("/");
     } catch (err) {
       setError("Login failed, please check your credentials");
