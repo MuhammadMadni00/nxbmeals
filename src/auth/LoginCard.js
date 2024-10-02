@@ -15,11 +15,14 @@ function LoginCard() {
   const handleForgotPassword = () => {
     navigate("/forgotpassword");
   };
+  const api_base_uri="http://127.0.0.1:4040/";
+
   const handleLogin = async (e) => {
+    alert("hi",api_base_uri)
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${api_base_uri}api/auth/login`,
         {
           email,
           password,

@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import './ForgotPassword.css'; // Add custom styles for the dashboard content
 function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const api_base_uri="http://127.0.0.1:4040/";
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/forgot-password",
+        `${api_base_uri}api/auth/forgot-password`,
         {
           email,
         }
