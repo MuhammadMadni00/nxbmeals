@@ -10,7 +10,8 @@ const AddCatalogueForm = () => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const base_uri = "http://localhost:5000/api/catalogues";
+  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const base_uri = `${api_base_uri}api/catalogues`;
 
   const handleImageCompression = async (file) => {
     const options = {

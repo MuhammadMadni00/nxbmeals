@@ -4,7 +4,8 @@ const QuickServeCard = () => {
   const [employeeId, setEmployeeId] = useState('');
   const [mealSlot, setMealSlot] = useState('');
   const [selectedMeals, setSelectedMeals] = useState({});
-  
+  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+
   const meals = [
     { name: 'Biryani', price: 200 },
     { name: 'Chicken Karahi', price: 300 },
@@ -63,7 +64,7 @@ const QuickServeCard = () => {
           price: selectedMeals[mealName].price,
         };
   
-        const response = await fetch('http://localhost:5000/api/meals/create', {
+        const response = await fetch(`${api_base_uri}api/meals/create`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

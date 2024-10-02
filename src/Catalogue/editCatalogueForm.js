@@ -13,7 +13,8 @@ const EditCatalogueForm = () => {
   const [success, setSuccess] = useState(false);
   const catalogueId = useParams()
   const id = catalogueId.id
-  const base_uri = `http://localhost:5000/api/catalogues/${id}`;
+  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const base_uri = `${api_base_uri}api/catalogues/${id}`;
   const handleImageCompression = async (file) => {
     const options = {
       maxSizeMB: 1,

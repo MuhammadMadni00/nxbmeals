@@ -97,9 +97,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 const CatalogueCard = () => {
     const [catalogue, setCatalogue] = useState("");
     const [loading, setLoading] = useState(true);
-    
-    const apiUrl = "http://localhost:5000";
-    
+    const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";    
     const navigate = useNavigate(); 
   const handleToggleStatus = (id) => {
     setCatalogue((prevCatalogue) =>
@@ -119,7 +117,7 @@ const CatalogueCard = () => {
     
     if (confirm) {
       try {
-        await axios.delete(`${apiUrl}/api/catalogues/${id}`);
+        await axios.delete(`${api_base_uri}/api/catalogues/${id}`);
           setCatalogue((prevCatalogue) =>
           prevCatalogue.filter((item) => item.id !== id)
         );
@@ -139,7 +137,7 @@ const CatalogueCard = () => {
   useEffect(() => {
     const fetchCatalogues = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/catalogues");
+        const response = await fetch(`${api_base_uri}api/catalogues`);
         if (!response.ok) {
           throw new Error("Failed to fetch catalogues");
         }

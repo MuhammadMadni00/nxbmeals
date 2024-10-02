@@ -5,10 +5,12 @@ const MealTable = () => {
   const [loading, setLoading] = useState(true);
   const [employeeNames, setEmployeeNames] = useState({}); // Store employee names
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+
   useEffect(() => {
     const fetchMeals = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/meals/");
+        const response = await fetch(`${api_base_uri}api/meals/`);
         const data = await response.json();
         setMealData(data);
         await fetchEmployeeNames(data);
@@ -26,7 +28,7 @@ const MealTable = () => {
       for (const employeeId of employeeIds) {
         try {
           const response = await fetch(
-            `http://localhost:5000/api/users/${employeeId}`
+            `${api_base_uri}api/users/${employeeId}`
           );
           const userData = await response.json();
           if (userData && userData.first_name) {

@@ -4,16 +4,17 @@ const MealRecordsTable = ({ employeeId }) => {
   const [userData, setUserData] = useState(null);
   const [mealRecords, setMealRecords] = useState([]);
   const [loading, setLoading] = useState(true);
+  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userResponse = await fetch(`http://localhost:5000/api/users/${employeeId}`);
+        const userResponse = await fetch(`${api_base_uri}api/users/${employeeId}`);
         const userData = await userResponse.json();
         setUserData(userData);
 
         // Assuming you have an endpoint to fetch meal records for the user
-        const mealsResponse = await fetch(`http://localhost:5000/api/meals/${employeeId}`);
+        const mealsResponse = await fetch(`${api_base_uri}api/meals/${employeeId}`);
         const mealsData = await mealsResponse.json();
         
         setMealRecords(mealsData);

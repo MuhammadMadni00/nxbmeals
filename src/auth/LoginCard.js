@@ -18,7 +18,7 @@ function LoginCard() {
   const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
 
   const handleLogin = async (e) => {
-    alert("hi",api_base_uri)
+    alert(`hi${api_base_uri}`)
     e.preventDefault();
     try {
       const response = await axios.post(

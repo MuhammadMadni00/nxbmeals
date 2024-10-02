@@ -5,7 +5,8 @@ const UserCard = () => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
-  const base_uri = "http://localhost:5000/api/users";
+  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const base_uri = `${api_base_uri}api/users`;
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const UserCard = () => {
 
     if (confirm) {
       try {
-        const response = await axios.put('http://localhost:5000/api/users/updatestatus', {
+        const response = await axios.put(`${api_base_uri}api/users/updatestatus`, {
           email: email,
           status: newStatus.toLowerCase() === "active" ? true : false, 
         });
