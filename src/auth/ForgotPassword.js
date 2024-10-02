@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import './ForgotPassword.css'; // Add custom styles for the dashboard content
 function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const api_base_uri="http://127.0.0.1:4040/";
+  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {
