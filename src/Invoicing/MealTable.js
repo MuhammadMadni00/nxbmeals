@@ -7,11 +7,16 @@ const MealTable = () => {
   const [employeeNames, setEmployeeNames] = useState({});
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
   const api_base_uri = "http://localhost:5000/";
+  const token = localStorage.authToken
 
   useEffect(() => {
     const fetchMeals = async () => {
       try {
-        const response = await fetch(`${api_base_uri}api/meals/`);
+        const response = await fetch(`${api_base_uri}api/meals/`,{
+          headers: {
+            'authorization': token
+          }
+        });
         const data = await response.json();
         setMealData(data);
         await fetchEmployeeNames(data);
@@ -28,7 +33,13 @@ const MealTable = () => {
 
       for (const employeeId of employeeIds) {
         try {
-          const response = await fetch(`${api_base_uri}api/users/${employeeId}`);
+          const response = await fetch(`${api_base_uri}api/users/${employeeId}`,
+            {
+              headers: {
+                'authorization': token
+              }
+            }
+          );
           const userData = await response.json();
           if (userData && userData.first_name) {
             names[employeeId] = `${userData.first_name} ${userData.last_name}`;

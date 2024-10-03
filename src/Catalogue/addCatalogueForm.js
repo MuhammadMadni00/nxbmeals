@@ -12,6 +12,7 @@ const AddCatalogueForm = () => {
   const [success, setSuccess] = useState(false);
   const api_base_uri="http://localhost:5000/";
   const base_uri = `${api_base_uri}api/catalogues`;
+  const token = localStorage.authToken
 
   const handleImageCompression = async (file) => {
     const options = {
@@ -40,6 +41,7 @@ const AddCatalogueForm = () => {
     try {
       const response = await axios.post(base_uri, formData, {
         headers: {
+          'authorization': token,
           "Content-Type": "multipart/form-data",
         },
       });

@@ -12,10 +12,13 @@ const EditCatalogueForm = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const catalogueId = useParams()
+  const token = localStorage.authToken
+
   const id = catalogueId.id
   const api_base_uri="http://localhost:5000/";
   const base_uri = `${api_base_uri}api/catalogues/${id}`;
   const handleImageCompression = async (file) => {
+
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 800,
@@ -42,6 +45,7 @@ const EditCatalogueForm = () => {
     try {
       const response = await axios.put(base_uri, formData, {
         headers: {
+          'authorization': token,
           "Content-Type": "multipart/form-data",
         },
       });
@@ -63,7 +67,11 @@ const EditCatalogueForm = () => {
 
     const fetchCatalogue = async () => {
       try {
-        const response = await fetch(base_uri);
+        const response = await fetch(base_uri,{
+          headers: {
+            'authorization': token
+          }
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch catalogue');
         }

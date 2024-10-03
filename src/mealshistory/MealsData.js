@@ -10,12 +10,17 @@ const MealData = () => {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [loading, setLoading] = useState(true);
-  const api_base_uri="http://localhost:5000/";
-
+  const api_base_uri = "http://localhost:5000/";
+  const token = localStorage.authToken
   useEffect(() => {
     const fetchMeals = async () => {
       try {
-        const response = await fetch(`${api_base_uri}api/meals/`);
+        // alert(token);
+        const response = await fetch(`${api_base_uri}api/meals/`, {
+          headers: {
+            'authorization': token
+          }
+          });
         const data = await response.json();
         setMealsData(data);
         await fetchUserData(data);
@@ -36,7 +41,12 @@ const MealData = () => {
 
     for (const employeeId of employeeIds) {
       try {
-        const response = await fetch(`${api_base_uri}api/users/${employeeId}`);
+        const response = await fetch(`${api_base_uri}api/users/${employeeId}`,{
+          headers: {
+            'Authorization':  token
+          }
+        }
+        );
         const data = await response.json();
         userDetails[employeeId] = {
           name: `${data.first_name} ${data.last_name}`,
@@ -122,7 +132,6 @@ const MealData = () => {
           <option value="Dinner">Dinner</option>
         </select>
 
-
         <select
           value={locationFilter}
           onChange={(e) => setLocationFilter(e.target.value)}
@@ -133,7 +142,6 @@ const MealData = () => {
           <option value="Lahore Center II">Lahore Center II</option>
           <option value="Lahore Center III">Lahore Center III</option>
         </select>
-
         <input
           type="date"
           placeholder="Date From"
@@ -150,33 +158,34 @@ const MealData = () => {
         />
       </div>
 
-
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th style={styles.th}>Employee ID</th>
-            <th style={styles.th}>Name</th>
-            <th style={styles.th}>Location</th>
-            <th style={styles.th}>Meal</th>
-            <th style={styles.th}>Served Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((meal) => (
-            <tr key={meal._id}>
-              <td style={styles.td}>{meal.employee_id}</td>
-              <td style={styles.td}>
-                {userData[meal.employee_id]?.name}
-              </td>
-              <td style={styles.td}>
-                {userData[meal.employee_id]?.location}
-              </td>
-              <td style={styles.td}>{meal.meal_slot}</td>
-              <td style={styles.td}>{new Date(meal.date).toLocaleString()}</td>
+      <div style={styles.tableWrapper}>
+        <table style={styles.table}>
+          <thead>
+            <tr>
+              <th style={styles.th}>Employee ID</th>
+              <th style={styles.th}>Name</th>
+              <th style={styles.th}>Location</th>
+              <th style={styles.th}>Meal</th>
+              <th style={styles.th}>Served Time</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredData.map((meal) => (
+              <tr key={meal._id}>
+                <td style={styles.td}>{meal.employee_id}</td>
+                <td style={styles.td}>
+                  {userData[meal.employee_id]?.name}
+                </td>
+                <td style={styles.td}>
+                  {userData[meal.employee_id]?.location}
+                </td>
+                <td style={styles.td}>{meal.meal_slot}</td>
+                <td style={styles.td}>{new Date(meal.date).toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
@@ -188,23 +197,31 @@ const styles = {
   heading: {
     textAlign: "center",
     marginBottom: "20px",
+    fontSize: "2rem",
   },
   filtersContainer: {
     display: "flex",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     marginBottom: "20px",
+  
   },
   input: {
+    borderRadius: "10px",
     padding: "10px",
     fontSize: "16px",
-    marginRight: "10px",
-    width: "200px",
+    margin: "10px 35px",
+    flex: "1 1 200px",
   },
   select: {
+    borderRadius: "10px",
     padding: "10px",
     fontSize: "16px",
-    marginRight: "10px",
-    width: "200px",
+    margin: "10px 45px ",
+    flex: "1 1 200px",
+  },
+  tableWrapper: {
+    overflowX: "auto", // Allows table to scroll horizontally on smaller screens
   },
   table: {
     width: "100%",

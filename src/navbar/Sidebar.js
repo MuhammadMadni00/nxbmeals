@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Sidebar.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-const Sidebar = () => {
+const  Sidebar = () => {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     window.location.href = "/login";
@@ -37,6 +37,9 @@ const Sidebar = () => {
             <i className="fas fa-utensils"></i> Menu
           </Link>
         </li>
+        {/* <li>
+          History
+        </li> */}
         <li>
           <Link to="/catalogue">
             <i className="fas fa-book"></i> Catalogue

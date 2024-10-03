@@ -7,7 +7,8 @@ const CatalogueCard = () => {
     const [loading, setLoading] = useState(true);
     const api_base_uri="http://localhost:5000/";    
     const navigate = useNavigate(); 
-  const handleToggleStatus = (id) => {
+    const token = localStorage.authToken
+    const handleToggleStatus = (id) => {
     setCatalogue((prevCatalogue) =>
       prevCatalogue.map((item) =>
         item.id === id
@@ -25,7 +26,16 @@ const CatalogueCard = () => {
     
     if (confirm) {
       try {
-        await axios.delete(`${api_base_uri}/api/catalogues/${id}`);
+        alert(`${api_base_uri}/api/catalogues/${id}`,{
+          
+          headers:{
+            authorization:token
+          }});
+        await axios.delete(`${api_base_uri}api/catalogues/${id}`,{
+          
+          headers:{
+            authorization:token
+          }});
           setCatalogue((prevCatalogue) =>
           prevCatalogue.filter((item) => item.id !== id)
         );
@@ -40,12 +50,16 @@ const CatalogueCard = () => {
 
   const handleEdit = (id) => {
   
-    navigate(`/edit-catalogue/${id}`);
+    navigate(`/edit-catalogue/${id}`,{ headers: {
+      'authorization': token
+    }});
   };
   useEffect(() => {
     const fetchCatalogues = async () => {
       try {
-        const response = await fetch(`${api_base_uri}api/catalogues`);
+        const response = await fetch(`${api_base_uri}api/catalogues`,{ headers: {
+            'authorization': token
+          }});
         if (!response.ok) {
           throw new Error("Failed to fetch catalogues");
         }

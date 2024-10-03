@@ -6,13 +6,17 @@ const UserCard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
   const api_base_uri="http://localhost:5000/";
-
+  const token = localStorage.authToken
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get( `${api_base_uri}api/users`);
+        const response = await axios.get( `${api_base_uri}api/users`, {
+          headers: {
+            'authorization': token
+          }
+          });
         if (response.data && Array.isArray(response.data)) {
           setUsers(response.data);
         } else {
@@ -75,7 +79,13 @@ const UserCard = () => {
     if (confirm) {
       try {
         const response = await axios.delete(`http://localhost:5000/api/users/delete`, {
+
           data:{email} 
+          , 
+            headers: {
+              'authorization': token
+            }
+       
         });
 
         console.log(response.data);
