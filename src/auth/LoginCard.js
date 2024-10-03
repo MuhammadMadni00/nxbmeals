@@ -1,24 +1,22 @@
 import React, { useState } from "react";
-import "./LoginCard.css"; // Import the styles for the login card
+import "./LoginCard.css"; 
 import axios from "axios";
-import "@fortawesome/fontawesome-free/css/all.min.css"; // Import Font Awesome
+import "@fortawesome/fontawesome-free/css/all.min.css"; 
 import { useNavigate } from "react-router-dom";
 
 function LoginCard() {
-  // State to store username and password input
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
 
-  const navigate = useNavigate(); // Use React Router's navigate hook
+  const navigate = useNavigate(); 
   const handleForgotPassword = () => {
     navigate("/forgotpassword");
   };
   const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
 
   const handleLogin = async (e) => {
-    alert(`hi${api_base_uri}`)
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -67,7 +65,7 @@ function LoginCard() {
 
         <div className="form-group">
           <div className="input-icon">
-            <i className="fas fa-lock"></i> {/* Font Awesome Password Icon */}
+            <i className="fas fa-lock"></i> 
             <input
               type="password"
               id="password"

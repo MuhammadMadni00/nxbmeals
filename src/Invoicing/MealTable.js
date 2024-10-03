@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import MealRecordsTable from "./MealRecordsTable";
+
 const MealTable = () => {
   const [mealData, setMealData] = useState({});
   const [loading, setLoading] = useState(true);
-  const [employeeNames, setEmployeeNames] = useState({}); // Store employee names
+  const [employeeNames, setEmployeeNames] = useState({});
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
-  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const api_base_uri = "http://localhost:5000/";
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -27,13 +28,10 @@ const MealTable = () => {
 
       for (const employeeId of employeeIds) {
         try {
-          const response = await fetch(
-            `${api_base_uri}api/users/${employeeId}`
-          );
+          const response = await fetch(`${api_base_uri}api/users/${employeeId}`);
           const userData = await response.json();
           if (userData && userData.first_name) {
-
-            names[employeeId] = userData.first_name + userData.last_name;
+            names[employeeId] = `${userData.first_name} ${userData.last_name}`;
           }
         } catch (error) {
           console.error(
@@ -50,9 +48,8 @@ const MealTable = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div style={styles.loading}>Loading...</div>;
   }
-
 
   const employeeTotals = Object.keys(mealData).map((employeeId) => {
     const meals = mealData[employeeId];
@@ -62,8 +59,9 @@ const MealTable = () => {
       totalAmount,
       meals,
       name: employeeNames[employeeId] || "Unknown",
-    }; 
+    };
   });
+
   const handleEmployeeClick = (employeeId) => {
     setSelectedEmployeeId((prevSelectedId) =>
       prevSelectedId === employeeId ? null : employeeId
@@ -79,7 +77,6 @@ const MealTable = () => {
             <th style={styles.th}>Employee ID</th>
             <th style={styles.th}>Employee Name</th>
             <th style={styles.th}>Total Amount</th>
-       
           </tr>
         </thead>
         <tbody>
@@ -87,6 +84,7 @@ const MealTable = () => {
             <tr key={employee.employeeId}>
               <td style={styles.td}>
                 <button
+                  style={styles.button}
                   onClick={() => handleEmployeeClick(employee.employeeId)}
                 >
                   {employee.employeeId}
@@ -95,8 +93,7 @@ const MealTable = () => {
                   <MealRecordsTable employeeId={selectedEmployeeId} />
                 )}
               </td>
-              <td style={styles.td}>{employee.name}</td>{" "}
-        
+              <td style={styles.td}>{employee.name}</td>
               <td style={styles.td}>Rs {employee.totalAmount}</td>
             </tr>
           ))}
@@ -110,14 +107,17 @@ const styles = {
   tableContainer: {
     width: "80%",
     margin: "20px auto",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#ffffff",
     padding: "20px",
     borderRadius: "10px",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0px 0px 15px rgba(0, 0, 0, 0.1)",
+    fontFamily: "'Roboto', sans-serif",
   },
   heading: {
     textAlign: "center",
-    fontSize: "22px",
+    fontSize: "24px",
+    color: "#333",
+    marginBottom: "20px",
   },
   table: {
     width: "100%",
@@ -125,22 +125,33 @@ const styles = {
     marginTop: "20px",
   },
   th: {
-    border: "1px solid #ccc",
-    padding: "10px",
+    border: "1px solid #ddd",
+    padding: "12px",
     textAlign: "left",
     backgroundColor: "#007BFF",
     color: "#fff",
+    fontWeight: "bold",
   },
   td: {
-    border: "1px solid #ccc",
-    padding: "10px",
+    border: "1px solid #ddd",
+    padding: "12px",
+    textAlign: "left",
+    color: "#555",
   },
-  clickableTd: {
-    background: 'none',
-    border: 'none',
-    color: 'blue', // Change to your preferred color
-    textDecoration: 'underline',
-    cursor: 'pointer',
+  button: {
+    backgroundColor: "transparent",
+    border: "1px solid #ddd",
+    borderRadius:"10px",
+    color: "#007BFF",
+    textDecoration: "underline",
+    cursor: "pointer",
+    fontSize: "16px",
+  },
+  loading: {
+    textAlign: "center",
+    fontSize: "20px",
+    marginTop: "20px",
+    color: "#007BFF",
   },
 };
 

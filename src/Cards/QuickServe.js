@@ -4,7 +4,7 @@ const QuickServeCard = () => {
   const [employeeId, setEmployeeId] = useState('');
   const [mealSlot, setMealSlot] = useState('');
   const [selectedMeals, setSelectedMeals] = useState({});
-  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const api_base_uri="http://localhost:5000/";
 
   const meals = [
     { name: 'Biryani', price: 200 },
@@ -41,17 +41,6 @@ const QuickServeCard = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    // Create the data object that matches the schema
-    // const mealData = {
-    //   employee_id: employeeId,
-    //   meal_slot: mealSlot,
-    //   meals: Object.keys(selectedMeals).map((mealName) => ({
-    //     meal_name: mealName,
-    //     qty: selectedMeals[mealName].qty,
-    //     price: selectedMeals[mealName].price,
-    //   })),
-    // };
   
     try {
       for (const mealName of Object.keys(selectedMeals)) {
@@ -216,8 +205,8 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
-    margin: '20px auto', // Centering the button
-    fontSize: '14px', // Slightly smaller font
+    margin: '20px auto', 
+    fontSize: '14px', 
     textAlign: 'center',
   },
 };

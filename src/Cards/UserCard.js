@@ -5,14 +5,14 @@ const UserCard = () => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
-  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
-  const base_uri = `${api_base_uri}api/users`;
+  const api_base_uri="http://localhost:5000/";
+
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(base_uri);
+        const response = await axios.get( `${api_base_uri}api/users`);
         if (response.data && Array.isArray(response.data)) {
           setUsers(response.data);
         } else {
@@ -28,19 +28,17 @@ const UserCard = () => {
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset to first page on search
+    setCurrentPage(1); 
   };
 
-  // Apply search filter
   const filteredUsers = users.filter(user => 
     (user.ID && String(user.ID).toLowerCase().includes(searchTerm.toLowerCase())) ||
     (user.Name && user.Name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const handleActivateDeactivate = async (email, currentStatus) => {
-    const newStatus = currentStatus === "Active" ? "Inactive" : "Active"; // Toggle status
+    const newStatus = currentStatus === "Active" ? "Inactive" : "Active";
 
-    // Confirm with the user before making the status change
     const confirm = window.confirm(`Do you want to change the status of user ${email} to ${newStatus}?`);
 
     if (confirm) {
@@ -91,7 +89,6 @@ const UserCard = () => {
   };
 
 
-  // Pagination applied to filteredUsers
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
@@ -220,7 +217,7 @@ const styles = {
   table: {
     width: "100%",
     borderCollapse: "collapse",
-    textAlign: "center", // Center align all table content
+    textAlign: "center", 
   },
   row: {
     borderBottom: "1px solid #ddd",
@@ -229,7 +226,7 @@ const styles = {
     borderBottom: "3px solid #ddd",
   },
   cell: {
-    padding: "20px", // Add padding for better appearance
+    padding: "20px", 
   },
   actions: {
 

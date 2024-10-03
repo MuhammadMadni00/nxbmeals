@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "@fortawesome/fontawesome-free/css/all.min.css"; // Import Font Awesome
+import "@fortawesome/fontawesome-free/css/all.min.css";  
 import { useNavigate } from "react-router-dom";
-import './ForgotPassword.css'; // Add custom styles for the dashboard content
+import './ForgotPassword.css';
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";

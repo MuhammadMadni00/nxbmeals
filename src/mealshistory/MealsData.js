@@ -10,7 +10,7 @@ const MealData = () => {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [loading, setLoading] = useState(true);
-  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const api_base_uri="http://localhost:5000/";
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -19,7 +19,7 @@ const MealData = () => {
         const data = await response.json();
         setMealsData(data);
         await fetchUserData(data);
-        setFilteredData(flattenMealData(data)); // Flatten the data for easier filtering
+        setFilteredData(flattenMealData(data)); 
       } catch (error) {
         console.error("Error fetching meal data:", error);
       } finally {

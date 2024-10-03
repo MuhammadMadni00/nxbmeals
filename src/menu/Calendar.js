@@ -4,19 +4,18 @@ import './Calendar.css'; // For styles
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
-  const [meals, setMeals] = useState({}); // Store meals for each date
+  const [meals, setMeals] = useState({}); 
   
   const mealOptions = [
     { name: 'Biryani', price: 200 },
     { name: 'Chicken Karahi', price: 300 },
     { name: 'Grilled Fish', price: 400 },
   ];
-
-  // Initialize meals with some default data for each date
+ 
   useEffect(() => {
     let defaultMeals = {};
     for (let day = 1; day <= 31; day++) {
-      defaultMeals[day] = mealOptions; // Same meal options for every date initially
+      defaultMeals[day] = mealOptions; 
     }
     setMeals(defaultMeals);
   }, []);
@@ -29,19 +28,17 @@ const Calendar = () => {
   const totalDays = daysInMonth(currentDate.getMonth(), currentDate.getFullYear());
 
   const handleDateClick = (day) => {
-    setSelectedDate(day); // Set the selected date to view meals
+    setSelectedDate(day); 
   };
 
   const renderCalendar = () => {
     const calendarDays = [];
     let emptyCells = firstDayOfMonth;
 
-    // Add empty cells to align the first day
     for (let i = 0; i < emptyCells; i++) {
       calendarDays.push(<div key={`empty-${i}`} className="calendar-day empty"></div>);
     }
 
-    // Render days of the month
     for (let day = 1; day <= totalDays; day++) {
       calendarDays.push(
         <div key={day} className="calendar-day" onClick={() => handleDateClick(day)}>

@@ -13,7 +13,7 @@ const EditCatalogueForm = () => {
   const [success, setSuccess] = useState(false);
   const catalogueId = useParams()
   const id = catalogueId.id
-  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const api_base_uri="http://localhost:5000/";
   const base_uri = `${api_base_uri}api/catalogues/${id}`;
   const handleImageCompression = async (file) => {
     const options = {
@@ -63,7 +63,6 @@ const EditCatalogueForm = () => {
 
     const fetchCatalogue = async () => {
       try {
-        // setLoading(true);
         const response = await fetch(base_uri);
         if (!response.ok) {
           throw new Error('Failed to fetch catalogue');
@@ -71,15 +70,14 @@ const EditCatalogueForm = () => {
         const data = await response.json();
         setName(data.name);
         setType("main course");
-        // let id = useParams()
-        // console.log("hellow",id)
+    
         setPrice(data.price);
         setImage(data.image);
-        // setCatalogue(data);
+        
       } catch (err) {
         setError(err.message);
       } finally {
-        // setLoading(false);
+     
       }
     };
 

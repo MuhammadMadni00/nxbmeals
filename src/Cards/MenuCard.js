@@ -1,28 +1,27 @@
 import React from 'react';
-import './MenuCard.css'; // Include the CSS file for styling
+import './MenuCard.css'; 
 
 const MenuCard = () => {
-  // Static data for today's menu
   const menu = [
     {
       name: 'Chicken Caesar Salad',
       price: 12.99,
-      image: 'https://via.placeholder.com/150', // Replace with an actual image URL
+      image: 'https://via.placeholder.com/150', 
     },
     {
       name: 'Grilled Salmon',
       price: 18.50,
-      image: 'https://via.placeholder.com/150', // Replace with an actual image URL
+      image: 'https://via.placeholder.com/150',
     },
     {
       name: 'Vegetarian Pizza',
       price: 14.00,
-      image: 'https://via.placeholder.com/150', // Replace with an actual image URL
+      image: 'https://via.placeholder.com/150', 
     },
     {
       name: 'Pasta Alfredo',
       price: 16.75,
-      image: 'https://via.placeholder.com/150', // Replace with an actual image URL
+      image: 'https://via.placeholder.com/150',
     },
   ];
 
