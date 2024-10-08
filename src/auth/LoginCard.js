@@ -14,7 +14,7 @@ function LoginCard() {
   const handleForgotPassword = () => {
     navigate("/forgotpassword");
   };
-  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const api_base_uri="http://localhost:5000/";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,9 +27,7 @@ function LoginCard() {
         }
       );
       localStorage.setItem("authToken", response.data.token);
-
-      console.log("Username:", email, "Password:", password);
-      navigate("/");
+       navigate("/");
     } catch (err) {
       setError("Login failed, please check your credentials");
     }

@@ -1,46 +1,103 @@
 .calendar-container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .calendar-day {
-    background-color: #f0f0f0;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 18px;
-  }
-  
-  .calendar-day:hover {
-    background-color: #ddd;
-  }
-  
-  .empty {
-    background-color: transparent;
-  }
-  
-  .meal-container {
-    margin-top: 20px;
-    text-align: left;
-  }
-  
-  .meal-container ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .meal-container ul li {
-    margin: 5px 0;
-    font-size: 16px;
-  }
-  
+  margin: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.calendar-day {
+  padding: 15px;
+  border: 1px solid #ccc;
+  text-align: center;
+  background-color: #f9f9f9;
+  position: relative;
+}
+
+.day-number {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.meal-preview {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.add-meal-btn {
+  background-color: #fdd835;
+  color: black;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.add-meal-btn:hover {
+  background-color: #fbc02d;
+}
+
+.empty {
+  visibility: hidden;
+}
+
+/* Modal-specific styles */
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.modal-body h4 {
+  margin-bottom: 10px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+.calendar-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.day-cell {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+}
+
+.catalogue-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.catalogue-item {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.catalogue-item.selected {
+  background-color: #f0f0f0;
+  border: 2px solid #00f;
+}

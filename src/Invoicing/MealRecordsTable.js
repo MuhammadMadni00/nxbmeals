@@ -13,6 +13,7 @@ const MealRecordsTable = ({ employeeId }) => {
         const userData = await userResponse.json();
         setUserData(userData);
 
+        // Assuming you have an endpoint to fetch meal records for the user
         const mealsResponse = await fetch(`${api_base_uri}api/meals/${employeeId}`);
         const mealsData = await mealsResponse.json();
         

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import './ForgotPassword.css';
 function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const api_base_uri="https://66c4-116-58-42-68.ngrok-free.app/";
+  const api_base_uri="http://localhost:5000/";
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {

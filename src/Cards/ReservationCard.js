@@ -29,6 +29,7 @@ const dinnerData = {
   labels: generateLast7Days(),
   datasets: [
     {
+      
       label: 'Dinner Reservations',
       data: [50, 60, 55, 70, 80, 65, 75],
       backgroundColor: 'rgba(153, 102, 255, 0.6)',

@@ -26,12 +26,12 @@ const CatalogueCard = () => {
     
     if (confirm) {
       try {
-        alert(`${api_base_uri}/api/catalogues/${id}`,{
+        console.log(`${api_base_uri}/api/catalogues/${id}`,{
           
           headers:{
             authorization:token
           }});
-        await axios.delete(`${api_base_uri}api/catalogues/${id}`,{
+        await axios.delete(`${api_base_uri}/api/catalogues/${id}`,{
           
           headers:{
             authorization:token
