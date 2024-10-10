@@ -1,22 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 
 const QuickServeCard = () => {
-  const [employeeId, setEmployeeId] = useState('');
-  const [mealSlot, setMealSlot] = useState('');
+  const [employeeId, setEmployeeId] = useState("");
+  const [mealSlot, setMealSlot] = useState("");
   const [selectedMeals, setSelectedMeals] = useState({});
-  const api_base_uri="http://localhost:5000/";
+  const api_base_uri = "http://localhost:5000/";
 
-  const meals = [
-    { name: 'Biryani', price: 200 },
-    { name: 'Chicken Karahi', price: 300 },
-    { name: 'Grilled Fish', price: 400 },
-  ];
+  const [meals, setMeals] = useState([]);
+
+  useEffect(() => {
+    const today = new Date();
+    today.setDate(today.getDate()); 
+    const todayFronted = today.toISOString().split("T")[0];
+    const fetchMeals = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/menu/${todayFronted}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+
+       
+        const formattedMeals = data.map((meal) => ({
+          name: meal.selectedItems.map((item) => item.mealName).join(" and "), 
+          price: meal.totalPrice,
+        }));
+
+        setMeals(formattedMeals); 
+      } catch (error) {
+        console.error("Error fetching meals:", error);
+      }
+    };
+
+    fetchMeals(); 
+  }, []);
 
   const handleMealChange = (mealName, isChecked, qty) => {
     setSelectedMeals((prevMeals) => {
       const updatedMeals = { ...prevMeals };
       if (isChecked) {
-        updatedMeals[mealName] = { qty, price: qty * meals.find(meal => meal.name === mealName).price };
+        updatedMeals[mealName] = {
+          qty,
+          price: qty * meals.find((meal) => meal.name === mealName).price,
+        };
       } else {
         delete updatedMeals[mealName];
       }
@@ -29,47 +58,51 @@ const QuickServeCard = () => {
       const updatedMeals = { ...prevMeals };
       if (updatedMeals[mealName]) {
         updatedMeals[mealName].qty = qty;
-        updatedMeals[mealName].price = qty * meals.find(meal => meal.name === mealName).price;
+        updatedMeals[mealName].price =
+          qty * meals.find((meal) => meal.name === mealName).price;
       }
       return updatedMeals;
     });
   };
 
   const calculateTotal = () => {
-    return Object.values(selectedMeals).reduce((acc, meal) => acc + meal.price, 0);
+    return Object.values(selectedMeals).reduce(
+      (acc, meal) => acc + meal.price,
+      0
+    );
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       for (const mealName of Object.keys(selectedMeals)) {
         const mealData = {
           employee_id: employeeId,
           meal_slot: mealSlot,
           meal_name: mealName,
-          meal_id: `meal_${Date.now()}`, // Example unique ID for each meal record
+          meal_id: `meal_${Date.now()}`, 
           qty: selectedMeals[mealName].qty,
           price: selectedMeals[mealName].price,
         };
-  
+
         const response = await fetch(`${api_base_uri}api/meals/create`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(mealData),
         });
-  
+
         if (!response.ok) {
-          throw new Error('Failed to save meal record');
+          throw new Error("Failed to save meal record");
         }
       }
-  
-      alert('Meal served successfully!');
+
+      alert("Meal served successfully!");
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while serving the meal.');
+      console.error("Error:", error);
+      alert("An error occurred while serving the meal.");
     }
   };
 
@@ -88,7 +121,7 @@ const QuickServeCard = () => {
             type="text"
             placeholder="Enter Employee ID"
             value={employeeId}
-            required 
+            required
             onChange={(e) => setEmployeeId(e.target.value)}
             style={styles.input}
           />
@@ -99,15 +132,17 @@ const QuickServeCard = () => {
               value="Lunch"
               onChange={(e) => setMealSlot(e.target.value)}
               required
-            /> Lunch
+            />{" "}
+            Lunch
             <input
               type="radio"
               name="mealSlot"
               value="Dinner"
               onChange={(e) => setMealSlot(e.target.value)}
-              style={{ marginLeft: '10px' }}
+              style={{ marginLeft: "10px" }}
               required
-            /> Dinner
+            />{" "}
+            Dinner
           </div>
         </div>
 
@@ -116,14 +151,23 @@ const QuickServeCard = () => {
             <div key={index} style={styles.mealRow}>
               <input
                 type="checkbox"
-                onChange={(e) => handleMealChange(meal.name, e.target.checked, selectedMeals[meal.name]?.qty || 1)}
+                onChange={(e) =>
+                  handleMealChange(
+                    meal.name,
+                    e.target.checked,
+                    selectedMeals[meal.name]?.qty || 1
+                  )
+                }
               />
               <span style={styles.mealName}>{meal.name}</span>
+
               <input
                 type="number"
                 min="1"
                 defaultValue="1"
-                onChange={(e) => handleQtyChange(meal.name, parseInt(e.target.value))}
+                onChange={(e) =>
+                  handleQtyChange(meal.name, parseInt(e.target.value))
+                }
                 style={styles.qtyInput}
                 disabled={!selectedMeals[meal.name]}
               />
@@ -146,68 +190,68 @@ const QuickServeCard = () => {
 
 const styles = {
   card: {
-    border: '1px solid #ccc',
-    borderRadius: '10px',
-    padding: '20px',
-    width: '80%', 
-    margin: '20px auto',
-    backgroundColor: '#f9f9f9',
-    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+    border: "1px solid #ccc",
+    borderRadius: "10px",
+    padding: "20px",
+    width: "80%",
+    margin: "20px auto",
+    backgroundColor: "#f9f9f9",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
   },
   heading: {
-    textAlign: 'center',
-    fontSize: '22px',
-    marginBottom: '20px',
+    textAlign: "center",
+    fontSize: "22px",
+    marginBottom: "20px",
   },
   row: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '15px',
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "15px",
   },
   input: {
-    width: '45%',
-    padding: '8px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
+    width: "45%",
+    padding: "8px",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
   },
   mealRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '10px',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "10px",
   },
   mealName: {
-    flex: '1',
-    textAlign: 'left',
-    marginLeft: '10px',
+    flex: "1",
+    textAlign: "left",
+    marginLeft: "10px",
   },
   qtyInput: {
-    width: '60px',
-    padding: '5px',
-    border: '1px solid #ccc',
-    borderRadius: '5px',
-    marginLeft: '10px', 
+    width: "60px",
+    padding: "5px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    marginLeft: "10px",
   },
   price: {
-    marginLeft: '10px',
+    marginLeft: "10px",
   },
   total: {
-    textAlign: 'center',
-    marginTop: '20px',
-    fontSize: '18px',
-    fontWeight: 'bold',
+    textAlign: "center",
+    marginTop: "20px",
+    fontSize: "18px",
+    fontWeight: "bold",
   },
   submitButton: {
-    display: 'block',
-    padding: '5px 20px',
-    backgroundColor: '#007BFF',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    margin: '20px auto', 
-    fontSize: '14px', 
-    textAlign: 'center',
+    display: "block",
+    padding: "5px 20px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    margin: "20px auto",
+    fontSize: "14px",
+    textAlign: "center",
   },
 };
 

@@ -18,6 +18,7 @@ const MealTable = () => {
           }
         });
         const data = await response.json();
+        console.log(data);
         setMealData(data);
         await fetchEmployeeNames(data);
       } catch (error) {
@@ -29,6 +30,7 @@ const MealTable = () => {
 
     const fetchEmployeeNames = async (data) => {
       const employeeIds = Object.keys(data);
+      
       const names = {};
 
       for (const employeeId of employeeIds) {
